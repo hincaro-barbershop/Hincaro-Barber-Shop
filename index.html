@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HINCARO BARBER SHOP</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#101010;color:white;font-family:Arial,sans-serif}
+header{text-align:center;padding:30px 15px;background:#191919;border-bottom:2px solid #b88b45}
+.logo{font-size:30px;font-weight:bold;letter-spacing:3px}
+.gold{color:#d5a653}
+header p{color:#bbb}
+main{max-width:650px;margin:auto;padding:20px}
+.card{background:#1d1d1d;border:1px solid #393939;border-radius:13px;padding:20px;margin-bottom:18px}
+h2{color:#d5a653}
+input,select,button{width:100%;padding:14px;margin:8px 0;border-radius:8px;font-size:16px}
+input,select{background:#292929;color:white;border:1px solid #555}
+button{background:#c3974d;color:#111;font-weight:bold;border:0;cursor:pointer}
+.info{text-align:center;color:#bbb;line-height:1.8}
+footer{text-align:center;padding:25px;color:#888}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">HINCARO <span class="gold">BARBER SHOP</span></div>
+<p>Tu estilo, nuestra pasión.</p>
+<p>✂️ Reserva tu próximo corte</p>
+</header>
+<main>
+<section class="card">
+<h2>💈 Bienvenido</h2>
+<p>Reserva tu cita de manera rápida y sencilla.</p>
+<p class="gold">Horario: todos los días de 9:00 AM a 9:00 PM</p>
+</section>
+
+<section class="card">
+<h2>📅 Reservar una cita</h2>
+<form id="booking">
+<label>Nombre del cliente</label>
+<input id="name" placeholder="Tu nombre completo" required>
+
+<label>Tu número de celular</label>
+<input id="phone" type="tel" placeholder="Número de celular" required>
+
+<label>Servicio</label>
+<select id="service">
+<option>Corte de cabello</option>
+<option>Corte + barba</option>
+<option>Arreglo de barba</option>
+<option>Diseño y acabado</option>
+</select>
+
+<label>Barbero</label>
+<select id="barber">
+<option>Barbero disponible</option>
+</select>
+
+<label>Fecha</label>
+<input id="date" type="date" required>
+
+<label>Hora</label>
+<select id="time" required></select>
+
+<button type="submit">SOLICITAR RESERVA</button>
+</form>
+<p id="message" class="gold"></p>
+</section>
+
+<section class="card">
+<h2>📍 Nuestra barbería</h2>
+<p id="location">Ubicación próximamente disponible.</p>
+</section>
+
+<section class="card info">
+<h2>HINCARO BARBER SHOP</h2>
+✂️ Atención profesional<br>
+🕘 9:00 AM - 9:00 PM<br>
+📅 Abierto todos los días
+</section>
+</main>
+<footer>© HINCARO BARBER SHOP</footer>
+
+<script>
+const barbers = ["Barbero disponible"];
+const select = document.getElementById("barber");
+barbers.forEach(b => {
+  const option = document.createElement("option");
+  option.textContent = b;
+  select.appendChild(option);
+});
+
+const time = document.getElementById("time");
+for(let h=9;h<=20;h++){
+  for(let m of [0,30]){
+    const option=document.createElement("option");
+    option.value=String(h).padStart(2,"0")+":"+String(m).padStart(2,"0");
+    option.textContent=option.value;
+    time.appendChild(option);
+  }
+}
+
+document.getElementById("date").min =
+  new Date().toLocaleDateString("en-CA");
+
+document.getElementById("booking").addEventListener("submit",function(e){
+  e.preventDefault();
+  const date=document.getElementById("date").value;
+  if(date < new Date().toLocaleDateString("en-CA")){
+    alert("Selecciona una fecha válida.");
+    return;
+  }
+  document.getElementById("message").textContent =
+    "¡Formulario listo! Próximamente podrás confirmar tu reserva.";
+});
+</script>
+</body>
+</html>
